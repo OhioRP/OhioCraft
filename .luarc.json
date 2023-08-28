@@ -1,0 +1,7 @@
+{
+  "runtime.version": "LuaJIT",
+  "diagnostics": { "disable": ["lowercase-global"] },
+  "diagnostics.globals": [
+    "minetest"
+  ]
+}

@@ -1,0 +1,20 @@
+--- ./mineclone2/mods/ITEMS/mcl_amethyst/init.lua	2023-08-26 04:27:25.000000000 -0300
++++ ./Build/mods/ITEMS/mcl_amethyst/init.lua	2023-08-27 18:36:57.711275963 -0300
+@@ -1,8 +1,10 @@
+ local S = minetest.get_translator(minetest.get_current_modname())
+ 
+ local sounds = mcl_sounds.node_sound_glass_defaults({
+-	footstep = {name = "mcl_amethyst_amethyst_walk",  gain = 0.4},
+-	dug      = {name = "mcl_amethyst_amethyst_break", gain = 0.44},
++	footstep = {name = "mcl_amethyst_amethyst_walk",   gain = 0.1},
++	dug      = {name = "mcl_amethyst_amethyst_break",  gain = 0.1},
++	dig      = {name = "mcl_amethyst_amethyst_breaking", gain = 1},
++	place    = {name = "mcl_amethyst_amethyst_place",  gain = 0.1}
+ })
+ 
+ -- Amethyst block
+@@ -216,3 +218,4 @@
+ 
+ -- Amethyst Growing
+ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/grow.lua")
++

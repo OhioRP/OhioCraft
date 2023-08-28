@@ -1,0 +1,20 @@
+--- ./mineclone2/mods/ITEMS/mcl_barrels/init.lua	2023-08-26 04:27:25.000000000 -0300
++++ ./Build/mods/ITEMS/mcl_barrels/init.lua	2023-08-27 19:24:34.514222926 -0300
+@@ -67,7 +67,7 @@
+ 
+ 	minetest.swap_node(pos, { name = "mcl_barrels:barrel_open", param2 = node.param2 })
+ 	open_barrels[playername] = pos
+-	minetest.sound_play({ name = "mcl_barrels_default_barrel_open", pos = pos, gain = 0.5, max_hear_distance = 16 }, true)
++	minetest.sound_play({ name = "mcl_barrels_default_barrel_open", pos = pos, gain = 1, max_hear_distance = 16 }, true)
+ end
+ 
+ ---@param pos Vector
+@@ -87,7 +87,7 @@
+ 	if not node then return end
+ 	if node.name == "mcl_barrels:barrel_open" then
+ 		minetest.swap_node(pos, { name = "mcl_barrels:barrel_closed", param2 = node.param2 })
+-		minetest.sound_play({ name = "mcl_barrels_default_barrel_close", pos = pos, gain = 0.5, max_hear_distance = 16 },
++		minetest.sound_play({ name = "mcl_barrels_default_barrel_close", pos = pos, gain = 1, max_hear_distance = 16 },
+ 			true)
+ 	end
+ end
