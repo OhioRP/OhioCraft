@@ -78,5 +78,21 @@ else
 fi
 
 printf "\n --- Adding mods --- \n\n"
+
+printf "\nAdding OhioCraft specific mods\n\n"
 rm -vrf ./Build/mods/OHIOCRAFT
 cp -vr ./Mods ./Build/mods/OHIOCRAFT
+
+printf "\nAdding World Edit\n\n"
+if [ ! -f worldedit.zip ]; then
+    wget https://github.com/Uberi/Minetest-WorldEdit/archive/refs/tags/1.3.zip -O worldedit.zip
+fi
+if [ -d "Minetest-WorldEdit-1.3" ]; then
+    rm -rf "Minetest-WorldEdit-1.3"
+fi
+unzip worldedit.zip
+rm -vrf ./Build/mods/WORLDEDIT
+cp -vr ./Minetest-WorldEdit-1.3 ./Build/mods/WORLDEDIT
+
+printf "\n >>> Removing worldedit_gui\n\n"
+rm -vrf ./Build/mods/WORLDEDIT/worldedit_gui
