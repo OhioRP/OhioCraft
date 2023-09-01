@@ -1,0 +1,10 @@
+# textdomain: canon_lives
+Get your amount of canon lives=Obtenha sua quantidade de vidas canônicas
+Revive a dead player (player that lost all of its canon lives)=Reviva um player morto (player que perdeu todas as suas vidas canônicas)
+[WARNING]=[AVISO]
+loose one of your canon lives=perde uma das suas vidas canônicas
+@1 Everytime you die, you @2. Please check your amount of canon lives with /getcanonlives=@1 Toda vez que você morre, você @2. Por favor cheque sua quantidade de vidas canônicas com /getcanonlives
+@1 Everytime you die, you @2. If you loose all of your canon lives, you enter an "Spectator mode" you cannot get out of, which effectively kicks you out of the roleplay. You can check your amount of canon lives with /getcanonlives=@1 Toda vez que você morre, você @2. Se você perder todas as suas vidas canônicas, você entrará em um "Modo espectador" do qual você não conseguirá sair, o que efetivamente te remove do roleplay. Você pode checar a sua quantidade de vidas canônicas com /getcanonlives
+[WARNING] You permanently died! Only an administrator can revive you now=[AVISO] Você morreu permanentemente! Apenas um administrador pode te reviver agora
+[WARNING] Congratulations! An administrator just revived you!=[AVISO] Parabéns! Um administrador acabou de te reviver!
+You currently have @1 canon lives=Você atualmente possui @1 vidas canônicas
