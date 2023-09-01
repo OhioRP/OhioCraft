@@ -1,7 +1,12 @@
 {
-  "runtime.version": "LuaJIT",
-  "diagnostics": { "disable": ["lowercase-global"] },
-  "diagnostics.globals": [
-    "minetest"
-  ]
+    "runtime.version": "LuaJIT",
+    "diagnostics": {
+        "disable": [
+            "lowercase-global"
+        ]
+    },
+    "diagnostics.globals": [
+        "minetest",
+        "mcl_potions"
+    ]
 }

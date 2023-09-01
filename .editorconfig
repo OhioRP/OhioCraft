@@ -1,0 +1,13 @@
+root = true
+
+[*]
+end_of_line = lf
+
+[*.lua]
+charset = utf8
+indent_style = space
+indent_size = 4
+insert_final_newline = false
+trim_trailing_whitespace = true
+keep_one_space_between_table_and_bracket = true
+spaces_around_operators = true

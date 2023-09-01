@@ -7,7 +7,7 @@ If you want to modify MineClone2's source code, please add a patch for that in [
 
 ## Code conventions
 
-- Everything is formatted using [`lua-language-server`](https://github.com/LuaLS/lua-language-server)
+- Everything is formatted using [`lua-language-server`](https://github.com/LuaLS/lua-language-server) respecting [`.editorconfig`](./.editorconfig)
 - Avoid trailing commas
 - Everything is indented with 4 spaces
 
