@@ -40,20 +40,28 @@ minetest.register_on_joinplayer(function(player, prev)
     end
 
     local msg = S(
-        "@1 Everytime you die, you @2. If you loose all of your canon lives, you enter an \"Spectator mode\" you cannot get out of, which effectively kicks you out of the roleplay. You can check your amount of canon lives with /getcanonlives",
+        "@1 Everytime you get killed by a player, you @2. If you loose all of your canon lives, you enter an \"Spectator mode\" you cannot get out of, which effectively kicks you out of the roleplay. You can check your amount of canon lives with /getcanonlives",
         minetest.colorize("#FFFF00", S("[WARNING]")),
         minetest.colorize("#FF0000", S("loose one of your canon lives")))
     minetest.chat_send_player(player:get_player_name(), msg)
 end)
 
-minetest.register_on_dieplayer(function(player, _)
+minetest.register_on_dieplayer(function(player, reason)
     local player_meta = player:get_meta()
-    player_meta:set_int("canonlives", player_meta:get_int("canonlives") - 1)
+    if reason.type == "punch" then
+        local puncher = reason.object
+        if puncher ~= nil then
+            if puncher:is_player() then
+                player_meta:set_int("canonlives", player_meta:get_int("canonlives") - 1)
+            end
+        end
+    end
 end)
 
 minetest.register_on_respawnplayer(function(player)
     local player_meta = player:get_meta()
-    local msg = S("@1 Everytime you die, you @2. Please check your amount of canon lives with /getcanonlives",
+    local msg = S(
+        "@1 Everytime get killed by a player, you @2. Please check your amount of canon lives with /getcanonlives",
         minetest.colorize("#FFFF00", S("[WARNING]")),
         minetest.colorize("#FF0000", S("loose one of your canon lives")))
     minetest.chat_send_player(player:get_player_name(), msg)
@@ -107,7 +115,7 @@ minetest.register_chatcommand("revive", {
         player:get_meta():set_int("canonlives", 3)
         player:get_meta():set_int("canondead", 0)
 
-        minetest.chat_send_player(player,
-            minetest.colorize("#00FF00", "[WARNING] Congratulations! An administrator just revived you!"))
+        minetest.chat_send_player(player:get_player_name(),
+            minetest.colorize("#00FF00", S("[WARNING] Congratulations! An administrator just revived you!")))
     end
 })
