@@ -5,7 +5,7 @@ set -e
 if [ ! -d Build ]; then
     printf "\n --- Downloading MineClone2 --- \n\n"
     if [ ! -f mineclone2.zip ]; then
-        wget https://git.minetest.land/MineClone2/MineClone2/archive/f008fa3323e60f6cc80eeedb19291674618d7af8.zip -O mineclone2.zip
+        wget https://git.minetest.land/MineClone2/MineClone2/archive/b4c693bb205777b39446fe631ac02823656cc26d.zip -O mineclone2.zip
     fi
     unzip mineclone2.zip
     mv mineclone2 Build
@@ -77,7 +77,7 @@ else
     touch Build/patched
 fi
 
-printf "\n --- Adding mods --- \n\n"
+printf "\n --- Adding mods --- \n"
 
 printf "\nAdding OhioCraft specific mods\n\n"
 rm -vrf ./Build/mods/OHIOCRAFT
