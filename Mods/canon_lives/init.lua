@@ -4,8 +4,10 @@ function invisibilty_set(player, enabled)
     if enabled then
         local effect_func = minetest.registered_chatcommands.effect.func
         effect_func(player, "invisibility 999999 100")
+        minetest.get_player_by_name(player):set_nametag_attributes({ text = "‎ " })
     else
         mcl_potions._reset_player_effects(minetest.get_player_by_name(player))
+        minetest.get_player_by_name(player):set_nametag_attributes({ text = player })
     end
 end
 
