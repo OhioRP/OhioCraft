@@ -110,3 +110,27 @@ fi
 unzip decor.zip
 rm -vrf ./Build/mods/DECOR
 cp -vr ./mcl_decor ./Build/mods/DECOR
+
+printf "\nAdding Animalia\n\n"
+mkdir -p ./Build/mods/ANIMALS
+touch ./Build/mods/ANIMALS/modpack.txt
+
+printf " >>> Adding Creatura\n\n"
+if [ ! -f creatura.zip ]; then
+    wget "https://github.com/ElCeejo/creatura/archive/97375e088887e1fce8e30c34a1c2ed56f1cbce51.zip" -O creatura.zip
+fi
+if [ -d creatura-97375e088887e1fce8e30c34a1c2ed56f1cbce51 ]; then
+    rm -rf creatura-97375e088887e1fce8e30c34a1c2ed56f1cbce51
+fi
+unzip creatura.zip
+cp -vr ./creatura-97375e088887e1fce8e30c34a1c2ed56f1cbce51 ./Build/mods/ANIMALS/creatura
+
+printf "\n >>> Adding animalia\n\n"
+if [ ! -f animalia.zip ]; then
+    wget "https://github.com/ElCeejo/animalia/archive/8954aa349308d5657b500451ca1197b3efe3860d.zip" -O animalia.zip
+fi
+if [ -d animalia-8954aa349308d5657b500451ca1197b3efe3860d ]; then
+    rm -rf animalia-8954aa349308d5657b500451ca1197b3efe3860d
+fi
+unzip animalia.zip
+cp -vr ./animalia-8954aa349308d5657b500451ca1197b3efe3860d ./Build/mods/ANIMALS/animalia
