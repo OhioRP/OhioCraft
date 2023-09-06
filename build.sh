@@ -100,7 +100,7 @@ cp -vr ./Minetest-WorldEdit-1.3 ./Build/mods/WORLDEDIT
 printf "\n >>> Removing worldedit_gui\n\n"
 rm -vrf ./Build/mods/WORLDEDIT/worldedit_gui
 
-printf "\nAdding furniture\n\n"
+printf "\nAdding mcl_decor\n\n"
 if [ ! -f decor.zip ]; then
     wget https://codeberg.org/rudzik8/mcl_decor/archive/v1.4_01.zip -O decor.zip
 fi
