@@ -60,6 +60,9 @@ printf "\n --- Patching Diorite textures --- \n\n"
 rm -vf ./Build/textures/mcl_core_diorite.png
 cp -vf ./Assets/Textures/mcl_core_diorite.png ./Build/textures/
 
+printf "\n --- Removing ambient music --- \n\n"
+rm -vrf ./Build/mods/PLAYER/mcl_music
+
 printf "\n --- Patching source code --- \n\n"
 if [ -f Build/patched ]; then
     printf "%s" "WARNING: It looks like you already have a previous Build of OhioCraft. In order to apply patches, you would need to restart the build process. Do you want to skip this step? (y/n) " >&2
