@@ -1,4 +1,4 @@
-S = minetest.get_translator(minetest.get_current_modname())
+local S = minetest.get_translator(minetest.get_current_modname())
 
 minetest.register_node("extras:cool", {
     on_rightclick = function(_, _, clicker, _, _)

@@ -1,6 +1,6 @@
-S = minetest.get_translator(minetest.get_current_modname())
+local S = minetest.get_translator(minetest.get_current_modname())
 
-function invisibilty_set(player, enabled)
+local function invisibilty_set(player, enabled)
     if enabled then
         local effect_func = minetest.registered_chatcommands.effect.func
         effect_func(player, "invisibility 999999 100")
@@ -11,7 +11,7 @@ function invisibilty_set(player, enabled)
     end
 end
 
-function disable_spectator_player(name)
+local function disable_spectator_player(name)
     local privs = minetest.get_player_privs(name)
     privs.interact = true
     privs.dig = true
@@ -21,7 +21,7 @@ function disable_spectator_player(name)
     invisibilty_set(name, false)
 end
 
-function enable_spectator_player(name)
+local function enable_spectator_player(name)
     local privs = minetest.get_player_privs(name)
     privs.interact = nil
     privs.dig = nil
