@@ -36,6 +36,54 @@ local function handle_adm_kill_fields(player, fields)
 end
 -- End Kill Formspec --
 
+-- Gamemode Formspec --
+local function get_gamemode_formspec()
+    local texts = {
+        label = S("Change gamemode of a player"),
+        button_submit = S("Submit"),
+        default_field_player = S("<player name>"),
+        default_field_gamemode = S("<gamemode>")
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[5.25,3.8]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "field[0.3,0.8;4.7,0.8;player;;", FS(texts["default_field_player"]), "]",
+        "field[0.3,1.7;4.7,0.8;gamemode;;", FS(texts["default_field_gamemode"]), "]",
+        "button_exit[0.3,2.7;4.7,0.8;submit;", FS(texts["button_submit"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_gamemode_fields(player, fields)
+    if fields.submit then
+        local player_target = minetest.get_player_by_name(fields.player)
+        if player_target ~= nil then
+            local gamemode = minetest.registered_chatcommands.gamemode.func
+            local gamemodes = {
+                survival = "",
+                creative = ""
+            }
+            if gamemodes[fields.gamemode] == nil then
+                minetest.chat_send_player(
+                    player:get_player_name(),
+                    minetest.colorize("#FF0000", S("Invalid gamemode"))
+                )
+                return
+            end
+            gamemode(player:get_player_name(), fields.gamemode .. " " .. fields.player)
+        else
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid player"))
+            )
+        end
+    end
+end
+-- End Gamemode Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -66,8 +114,9 @@ end
 
 local function handle_adm_panel_fields(player, fields)
     if fields.kill then
-        ---@diagnostic disable-next-line: undefined-global
         minetest.show_formspec(player:get_player_name(), "adm_panel:kill", get_kill_formspec())
+    elseif fields.gamemode then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:gamemode", get_gamemode_formspec())
     end
 end
 
@@ -81,6 +130,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_panel_fields(player, fields)
     elseif formname == "adm_panel:kill" then
         handle_adm_kill_fields(player, fields)
+    elseif formname == "adm_panel:gamemode" then
+        handle_adm_gamemode_fields(player, fields)
     end
 end)
 
