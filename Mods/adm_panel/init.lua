@@ -21,11 +21,16 @@ local function get_kill_formspec()
     return table.concat(formspec, "")
 end
 
-local function handle_adm_kill_fields(_, fields)
+local function handle_adm_kill_fields(player, fields)
     if fields.submit then
-        local player = minetest.get_player_by_name(fields.player)
-        if player ~= nil then
-            player:set_hp(0, { type = "set_hp" })
+        local player_target = minetest.get_player_by_name(fields.player)
+        if player_target ~= nil then
+            player_target:set_hp(0, { type = "set_hp" })
+        else
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid player"))
+            )
         end
     end
 end
