@@ -1,0 +1,12 @@
+# textdomain: adm_panel
+
+Administrator panel=Painel de Administrador
+@1 - Kill a player=@1 - Mata um jogador
+Game mode=Modo de jogo
+@1 - Give an item to a player=@1 - Dá um item à um jogador
+@1 - Fill an area with an specific block=@1 - Preenche uma área com um bloco específico
+@1 - Give an effect to a player=@1 - Dá um efeito à um player
+@1 - Teleport to a coordinate or a player=@1 - Teleporta para uma coordenada ou um jogador
+@1 - Summon an entity=@1 - Sumona uma entidade
+Kill a player=Matar um jogador
+Submit=Enviar
