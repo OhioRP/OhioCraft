@@ -18,3 +18,4 @@ Invalid item=Item inválido
 <gamemode>=<modo de jogo>
 <item>=<item>
 Give an item to a player=Dar um item à um jogador
+Run WorldEdit's //set=Rodar o //set do WorldEdit
