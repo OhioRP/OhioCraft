@@ -216,6 +216,35 @@ local function handle_adm_effect_fields(player, fields)
 end
 -- End Effect Formspec --
 
+-- Teleport Formspec --
+local function get_teleport_formspec()
+    local texts = {
+        label = S("Teleport to a coordinate or a player"),
+        default_field_args = S("<arguments>"),
+        button_submit = S("Submit"),
+        label_insts = S("Arguments: ") .. minetest.registered_chatcommands.tp.params
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[18.5,3.55]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "field[0.3,0.8;17.9,0.8;arguments;;", FS(texts["default_field_args"]), "]",
+        "button_exit[0.3,1.7;17.9,0.8;submit;", FS(texts["button_submit"]), "]",
+        "label[0.3,3;", FS(texts["label_insts"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_teleport_fields(player, fields)
+    if fields.submit then
+        local teleport = minetest.registered_chatcommands.teleport.func
+        teleport(player:get_player_name(), fields.arguments)
+    end
+end
+-- End Teleport Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -255,6 +284,8 @@ local function handle_adm_panel_fields(player, fields)
         minetest.show_formspec(player:get_player_name(), "adm_panel:set", get_set_formspec())
     elseif fields.effect then
         minetest.show_formspec(player:get_player_name(), "adm_panel:effect", get_effect_formspec())
+    elseif fields.tp then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:tp", get_teleport_formspec())
     end
 end
 
@@ -276,6 +307,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_set_fields(player, fields)
     elseif formname == "adm_panel:effect" then
         handle_adm_effect_fields(player, fields)
+    elseif formname == "adm_panel:tp" then
+        handle_adm_teleport_fields(player, fields)
     end
 end)
 
