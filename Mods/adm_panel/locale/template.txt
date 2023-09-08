@@ -1,0 +1,26 @@
+# textdomain: adm_panel
+Kill a player=
+Submit=
+Invalid player=
+Change gamemode of a player=
+<player name>=
+<gamemode>=
+Invalid gamemode=
+Give an item to a player=
+<item>=
+Invalid item=
+Run WorldEdit's //set=
+Invalid block=
+Apply an effect to a player=
+<effect>=
+<duration (secs)>=
+Invalid effect=
+Invalid duration=
+Administrator panel=
+@1 - Kill a player=
+Game mode=
+@1 - Give an item to a player=
+@1 - Fill an area with an specific block=
+@1 - Give an effect to a player=
+@1 - Teleport to a coordinate or a player=
+@1 - Summon an entity=

@@ -11,6 +11,10 @@ If you want to modify MineClone2's source code, please add a patch for that in [
 - Avoid trailing commas
 - Everything is indented with 4 spaces
 
+## After changing something
+
+If you made any changes that require translation, use [update_translations](https://github.com/minetest-tools/update_translations) (./Tools/i18n.py) to update the translation files of the mod you modified.
+
 ## Adding media
 
 If you want to add any kind of media (like textures or sounds) into the project, please make sure the licensing allows it to be added. <br>
