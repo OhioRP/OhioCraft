@@ -294,6 +294,42 @@ local function handle_adm_summon_fields(player, fields)
 end
 -- End Summon Formspec --
 
+-- Time Formspec --
+local function get_time_formspec()
+    local texts = {
+        label = S("Set time"),
+        button_rise = S("Sunrise"),
+        button_noon = S("Noon"),
+        button_mid = S("Midnight"),
+        button_exit = S("Exit")
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[5.25,4.7]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "button[0.3,0.8;4.7,0.8;rise;", FS(texts["button_rise"]), "]",
+        "button[0.3,1.7;4.7,0.8;noon;", FS(texts["button_noon"]), "]",
+        "button[0.3,2.6;4.7,0.8;mid;", FS(texts["button_mid"]), "]",
+        "button_exit[0.3,3.6;4.7,0.8;exit;", FS(texts["button_exit"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_time_fields(_, fields)
+    if fields.rise then
+        minetest.set_timeofday(0.25)
+    elseif fields.noon then
+        minetest.set_timeofday(0.5)
+    elseif fields.mid then
+        minetest.set_timeofday(0)
+    elseif fields.exit then
+        return
+    end
+end
+-- End Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -303,7 +339,8 @@ local function get_panel_formspec()
         button_set = S("@1 - Fill an area with an specific block", "//set"),
         button_effect = S("@1 - Give an effect to a player", "/effect"),
         button_tp = S("@1 - Teleport to a coordinate or a player", "/tp"),
-        button_summon = S("@1 - Summon an entity", "/summon")
+        button_summon = S("@1 - Summon an entity", "/summon"),
+        button_time = S("@1 - Set time", "/time")
     }
 
     local formspec = {
@@ -316,7 +353,8 @@ local function get_panel_formspec()
         "button[0.3,4.6;9.9,0.8;set;", FS(texts["button_set"]), "]",
         "button[0.3,5.7;9.9,0.8;effect;", FS(texts["button_effect"]), "]",
         "button[0.3,6.8;9.9,0.8;tp;", FS(texts["button_tp"]), "]",
-        "button[0.3,7.9;9.9,0.8;summon;", FS(texts["button_summon"]), "]"
+        "button[0.3,7.9;9.9,0.8;summon;", FS(texts["button_summon"]), "]",
+        "button[0.3,9;9.9,0.8;time;", FS(texts["button_time"]), "]"
     }
 
     return table.concat(formspec, "")
@@ -337,6 +375,8 @@ local function handle_adm_panel_fields(player, fields)
         minetest.show_formspec(player:get_player_name(), "adm_panel:tp", get_teleport_formspec())
     elseif fields.summon then
         minetest.show_formspec(player:get_player_name(), "adm_panel:summon", get_summon_formspec())
+    elseif fields.time then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:time", get_time_formspec())
     end
 end
 
@@ -362,6 +402,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_teleport_fields(player, fields)
     elseif formname == "adm_panel:summon" then
         handle_adm_summon_fields(player, fields)
+    elseif formname == "adm_panel:time" then
+        handle_adm_time_fields(player, fields)
     end
 end)
 
