@@ -84,7 +84,7 @@ local function handle_adm_gamemode_fields(player, fields)
 end
 -- End Gamemode Formspec --
 
--- Begin Give Formspec --
+-- Give Formspec --
 local function get_give_formspec()
     local texts = {
         label = S("Give an item to a player"),
