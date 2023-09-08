@@ -160,6 +160,62 @@ local function handle_adm_set_fields(player, fields)
 end
 -- End Set Command Formspec --
 
+-- Effect Formspec --
+local function get_effect_formspec()
+    local texts = {
+        label = S("Apply an effect to a player"),
+        button_submit = S("Submit"),
+        default_field_player = S("<player name>"),
+        default_field_effect = S("<effect>"),
+        default_field_duration = S("<duration (secs)>")
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[5.25,4.7]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "field[0.3,0.8;4.7,0.8;player;;", FS(texts["default_field_player"]), "]",
+        "field[0.3,1.7;4.7,0.8;effect;;", FS(texts["default_field_effect"]), "]",
+        "field[0.3,2.6;4.7,0.8;duration;;", FS(texts["default_field_duration"]), "]",
+        "button_exit[0.3,3.6;4.7,0.8;submit;", FS(texts["button_submit"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_effect_fields(player, fields)
+    if fields.submit then
+        local player_target = minetest.get_player_by_name(fields.player)
+        if player_target ~= nil then
+            if fields.effect == "" or fields.effect == nil then
+                minetest.chat_send_player(
+                    player:get_player_name(),
+                    minetest.colorize("#FF0000", S("Invalid effect"))
+                )
+                return
+            end
+            if fields.duration:match("^%-?%d+$") == nil then
+                minetest.chat_send_player(
+                    player:get_player_name(),
+                    minetest.colorize("#FF0000", S("Invalid duration"))
+                )
+                return
+            end
+            local effect = minetest.registered_chatcommands.effect.func
+            effect(
+                player_target:get_player_name(),
+                fields.effect .. " " .. fields.duration
+            )
+        else
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid player"))
+            )
+        end
+    end
+end
+-- End Effect Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -197,6 +253,8 @@ local function handle_adm_panel_fields(player, fields)
         minetest.show_formspec(player:get_player_name(), "adm_panel:give", get_give_formspec())
     elseif fields.set then
         minetest.show_formspec(player:get_player_name(), "adm_panel:set", get_set_formspec())
+    elseif fields.effect then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:effect", get_effect_formspec())
     end
 end
 
@@ -216,6 +274,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_give_fields(player, fields)
     elseif formname == "adm_panel:set" then
         handle_adm_set_fields(player, fields)
+    elseif formname == "adm_panel:effect" then
+        handle_adm_effect_fields(player, fields)
     end
 end)
 
