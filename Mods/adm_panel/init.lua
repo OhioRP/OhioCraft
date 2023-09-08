@@ -110,12 +110,18 @@ local function handle_adm_give_fields(player, fields)
         local player_target = minetest.get_player_by_name(fields.player)
         if player_target ~= nil then
             if minetest.registered_items[fields.item] == nil then
-                minetest.chat_send_player(player:get_player_name(), minetest.colorize("#FF0000", S("Invalid item")))
+                minetest.chat_send_player(
+                    player:get_player_name(),
+                    minetest.colorize("#FF0000", S("Invalid item"))
+                )
                 return
             end
             player_target:get_inventory():add_item("main", fields.item .. " 1")
         else
-            minetest.chat_send_player(player:get_player_name(), minetest.colorize("#FF0000", S("Invalid player")))
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid player"))
+            )
         end
     end
 end
@@ -142,7 +148,10 @@ end
 local function handle_adm_set_fields(player, fields)
     if fields.submit then
         if minetest.registered_nodes[fields.block] == nil then
-            minetest.chat_send_player(player:get_player_name(), minetest.colorize("#FF0000", S("Invalid block")))
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid block"))
+            )
             return
         end
         local set = minetest.registered_chatcommands["/set"].func
