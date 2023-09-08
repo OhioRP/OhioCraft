@@ -84,6 +84,43 @@ local function handle_adm_gamemode_fields(player, fields)
 end
 -- End Gamemode Formspec --
 
+-- Begin Give Formspec --
+local function get_give_formspec()
+    local texts = {
+        label = S("Give an item to a player"),
+        button_submit = S("Submit"),
+        default_field_player = S("<player name>"),
+        default_field_item = S("<item>")
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[5.25,3.8]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "field[0.3,0.8;4.7,0.8;player;;", FS(texts["default_field_player"]), "]",
+        "field[0.3,1.7;4.7,0.8;item;;", FS(texts["default_field_item"]), "]",
+        "button_exit[0.3,2.7;4.7,0.8;submit;", FS(texts["button_submit"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_give_fields(player, fields)
+    if fields.submit then
+        local player_target = minetest.get_player_by_name(fields.player)
+        if player_target ~= nil then
+            if minetest.registered_items[fields.item] == nil then
+                minetest.chat_send_player(player:get_player_name(), minetest.colorize("#FF0000", S("Invalid item")))
+                return
+            end
+            player_target:get_inventory():add_item("main", fields.item .. " 1")
+        else
+            minetest.chat_send_player(player:get_player_name(), minetest.colorize("#FF0000", S("Invalid player")))
+        end
+    end
+end
+-- End Give Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -117,6 +154,8 @@ local function handle_adm_panel_fields(player, fields)
         minetest.show_formspec(player:get_player_name(), "adm_panel:kill", get_kill_formspec())
     elseif fields.gamemode then
         minetest.show_formspec(player:get_player_name(), "adm_panel:gamemode", get_gamemode_formspec())
+    elseif fields.give then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:give", get_give_formspec())
     end
 end
 
@@ -132,6 +171,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_kill_fields(player, fields)
     elseif formname == "adm_panel:gamemode" then
         handle_adm_gamemode_fields(player, fields)
+    elseif formname == "adm_panel:give" then
+        handle_adm_give_fields(player, fields)
     end
 end)
 
