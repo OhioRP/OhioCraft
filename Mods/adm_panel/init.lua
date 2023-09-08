@@ -245,6 +245,55 @@ local function handle_adm_teleport_fields(player, fields)
 end
 -- End Teleport Formspec --
 
+-- Summon Formspec --
+local function get_summon_formspec()
+    local texts = {
+        label = S("Summon an mob at a player"),
+        button_submit = S("Submit"),
+        default_field_mob = S("<mob id>"),
+        default_field_player = S("<player name>")
+    }
+
+    local formspec = {
+        "formspec_version[6]",
+        "size[5.25,3.8]",
+        "label[0.3,0.5;", FS(texts["label"]), "]",
+        "field[0.3,0.8;4.7,0.8;mob;;", FS(texts["default_field_mob"]), "]",
+        "field[0.3,1.7;4.7,0.8;player;;", FS(texts["default_field_player"]), "]",
+        "button_exit[0.3,2.7;4.7,0.8;submit;", FS(texts["button_submit"]), "]"
+    }
+
+    return table.concat(formspec, "")
+end
+
+local function handle_adm_summon_fields(player, fields)
+    if fields.submit then
+        if minetest.registered_entities[fields.mob] == nil then
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid mob"))
+            )
+            return
+        end
+
+        local player_target = minetest.get_player_by_name(fields.player)
+        if player_target ~= nil then
+            local summon = minetest.registered_chatcommands.summon.func
+            local pos = player_target:get_pos()
+            summon(
+                player:get_player_name(),
+                fields.mob .. " " .. pos.x .. "," .. pos.y .. "," .. pos.z
+            )
+        else
+            minetest.chat_send_player(
+                player:get_player_name(),
+                minetest.colorize("#FF0000", S("Invalid player"))
+            )
+        end
+    end
+end
+-- End Summon Formspec --
+
 local function get_panel_formspec()
     local texts = {
         label = S("Administrator panel"),
@@ -286,6 +335,8 @@ local function handle_adm_panel_fields(player, fields)
         minetest.show_formspec(player:get_player_name(), "adm_panel:effect", get_effect_formspec())
     elseif fields.tp then
         minetest.show_formspec(player:get_player_name(), "adm_panel:tp", get_teleport_formspec())
+    elseif fields.summon then
+        minetest.show_formspec(player:get_player_name(), "adm_panel:summon", get_summon_formspec())
     end
 end
 
@@ -309,6 +360,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         handle_adm_effect_fields(player, fields)
     elseif formname == "adm_panel:tp" then
         handle_adm_teleport_fields(player, fields)
+    elseif formname == "adm_panel:summon" then
+        handle_adm_summon_fields(player, fields)
     end
 end)
 
