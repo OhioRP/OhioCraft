@@ -414,6 +414,7 @@ local function open_adm_panel(_, player, _)
     privs.worldedit = true
     privs.teleport = true
     privs.interact = true
+    privs.settime = true
     minetest.set_player_privs(player:get_player_name(), privs)
 
     minetest.show_formspec(player:get_player_name(), "adm_panel:panel", get_panel_formspec())
