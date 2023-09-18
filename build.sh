@@ -2,6 +2,11 @@
 
 set -e
 
+unzip() {
+    echo "Unzipping \`$1\`"
+    /bin/unzip -qq $@
+}
+
 if [ ! -d Build ]; then
     printf "\n --- Downloading MineClone2 --- \n\n"
     if [ ! -f mineclone2.zip ]; then
@@ -78,6 +83,26 @@ else
     patch ./Build/mods/ITEMS/mcl_amethyst/init.lua < Patches/mcl_amethyst_init_lua.patch
     patch ./Build/mods/ITEMS/mcl_barrels/init.lua < Patches/mcl_barrels_init_lua.patch
     touch Build/patched
+
+    printf "\n >>> Patching REDSTONE\n\n"
+    echo "  -> Replacing \`mesecon\` with \`mesecon2\`"
+    find ./Build/mods -type f -exec \
+         sed -i {} -e 's/mesecon/mesecon2/g' \;
+    echo "  -> Adapting texture names"
+    for f in ./Build/textures/*; do
+        if [[ $f == *mesecons* ]]; then
+            mv "$f" "${f/mesecons/mesecon2s}"
+        fi
+    done
+    echo "  -> Adapting sound names"
+    find ./Build/mods/ITEMS/REDSTONE -type f -name "*mesecons*.ogg" -exec \
+         bash -c \
+         "bn=\$(basename \$0); bd=\$(dirname \$0); mv \$0 \$bd/\${bn/mesecons/mesecon2s}" {} \;
+    echo "  -> Adapting translation files"
+    find ./Build/mods/ITEMS/REDSTONE -type f -name "*mesecons*.tr" -exec \
+         bash -c \
+         "bn=\$(basename \$0); bd=\$(dirname \$0); mv \$0 \$bd/\${bn/mesecons/mesecon2s}" {} \;
+    echo "  -> Done!"
 fi
 
 printf "\n --- Adding mods --- \n"
@@ -110,3 +135,18 @@ fi
 unzip decor.zip
 rm -vrf ./Build/mods/DECOR
 cp -vr ./mcl_decor ./Build/mods/DECOR
+
+printf "\nAdding mesecons\n\n"
+if [ ! -f mesecons.zip ]; then
+    wget https://github.com/minetest-mods/mesecons/archive/8e30ee411347e6552cb5a9f28ea3069805853ea3.zip -O mesecons.zip
+fi
+if [ -d mesecons-8e30ee411347e6552cb5a9f28ea3069805853ea3 ]; then
+    rm -rf mesecons-8e30ee411347e6552cb5a9f28ea3069805853ea3
+fi
+unzip mesecons.zip
+rm -vrf ./Build/mods/MESECONS
+cp -vr ./mesecons-8e30ee411347e6552cb5a9f28ea3069805853ea3 \
+   ./Build/mods/MESECONS
+
+printf "\n >>> Removing mesecons_doors\n\n"
+rm -vrf ./Build/mods/MESECONS/mesecons_doors
