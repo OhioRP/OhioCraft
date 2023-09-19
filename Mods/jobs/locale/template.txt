@@ -1,0 +1,3 @@
+# textdomain: jobs
+Money=
+Money Giver=
