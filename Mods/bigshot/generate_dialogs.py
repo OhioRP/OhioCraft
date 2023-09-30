@@ -17,11 +17,12 @@ end
 """
     ends = 0
     for i, token in enumerate(dialogs):
+        chat_name = table_name.replace('_dialog', '').capitalize()
         source += f"""minetest.handle_async(function()
 local t0 = os.clock()
 while os.clock() - t0 <= {dialog_delay} do end
 end, function()
-minetest.chat_send_player(player, {repr(token)})
+minetest.chat_send_player(player, minetest.colorize("#00FF00", "<{chat_name}> ") .. {repr(token)})
 """
         if i == (len(dialogs) - 1):
             source += """if theme_song then
