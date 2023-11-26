@@ -126,9 +126,16 @@ function battle.start_battle(pn, callback)
         name = "now-s-your-chance-to-be-a"
     }, { loop = true, pos = minetest.get_player_by_name(pn):get_pos() })
 
+    local should_quit = false
+    minetest.register_on_dieplayer(function(player, _)
+        if player:get_player_name() == pn then
+            should_quit = true
+        end
+    end)
+
     local i = 0
     local function loop()
-        if i >= 10 then
+        if i >= 10 or should_quit then
             minetest.sound_stop(handle)
             if callback then
                 callback()
