@@ -1,4 +1,5 @@
-TODO(bigshot): Music/Sounds should only play for players that are close enough to Spamton
 TODO(bigshot): Beating Spamton should reward the player with something
 TODO(bigshot): When starting the battle, `in_battle` should remain `true`
+TODO(bigshot): Translations
+TODO(bigshot): `transfer_kromer` should not be Spamton's first attack
 TODO(mesecons): Make mesecons work with redstone

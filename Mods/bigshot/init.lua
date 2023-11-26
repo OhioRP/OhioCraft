@@ -35,8 +35,9 @@ register_spamton_variation("bigshot:spamton", {
                     local t0 = os.clock()
                     while os.clock() - t0 <= 2.5 do end
                 end, function() -- Start the battle
-                    battle.start_battle(clicker:get_player_name())
-                    in_battle = false
+                    battle.start_battle(clicker:get_player_name(), function()
+                        in_battle = false
+                    end)
                 end)
             end)
         end

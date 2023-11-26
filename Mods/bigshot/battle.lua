@@ -113,7 +113,7 @@ local function transfer_kromer(pn)
     end)
 end
 
-function battle.start_battle(pn)
+function battle.start_battle(pn, callback)
     local functions = {transfer_kromer, spawn_minispamtons, lightning_strikes}
     local functions_index = 1
 
@@ -125,6 +125,9 @@ function battle.start_battle(pn)
     local function loop()
         if i >= 10 then
             minetest.sound_stop(handle)
+            if callback then
+                callback()
+            end
             return
         end
 
