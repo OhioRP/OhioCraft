@@ -1,0 +1,13 @@
+--- mineclone2/mods/ENTITIES/mcl_mobs/spawning.lua	2023-09-04 19:20:48.000000000 -0300
++++ Build/mods/ENTITIES/mcl_mobs/spawning.lua	2023-10-15 13:15:59.725466071 -0300
+@@ -296,7 +296,9 @@
+ 	if mobs_list[mob_cat] then
+ 		mobs_list[mob_cat] = mobs_list[mob_cat] + 1
+ 	else
+-		mobs_list[mob_cat] = 1
++		if mob_cat then
++			mobs_list[mob_cat] = 1
++		end
+ 	end
+ end
+ 

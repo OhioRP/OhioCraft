@@ -7,6 +7,8 @@
     },
     "diagnostics.globals": [
         "minetest",
-        "mcl_potions"
+        "mcl_potions",
+        "mcl_mobs",
+        "lightning"
     ]
 }

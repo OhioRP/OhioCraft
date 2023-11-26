@@ -114,6 +114,7 @@ if [ -f Build/patched ]; then
 else
     patch ./Build/mods/ITEMS/mcl_amethyst/init.lua < Patches/mcl_amethyst_init_lua.patch
     patch ./Build/mods/ITEMS/mcl_barrels/init.lua < Patches/mcl_barrels_init_lua.patch
+    patch ./Build/mods/ENTITIES/mcl_mobs/spawning.lua < Patches/mcl_mobs_spawning_lua.patch
     touch Build/patched
 
     log 2 "Patching REDSTONE"
