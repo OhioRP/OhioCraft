@@ -3,7 +3,7 @@ local spamton_dialog = {}
 function spamton_dialog.show(player, theme_song, callback)
 local handle = nil
 if theme_song then
-handle = minetest.sound_play({ name = theme_song }, { loop = true })
+handle = minetest.sound_play({ name = theme_song }, { loop = true, pos = minetest.get_player_by_name(player):get_pos() })
 end
 minetest.handle_async(function()
 local t0 = os.clock()

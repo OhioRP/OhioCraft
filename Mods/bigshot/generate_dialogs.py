@@ -12,7 +12,7 @@ def generate_dialogs(dialogs: List[str], table_name: str) -> str:
 function {table_name}.show(player, theme_song, callback)
 local handle = nil
 if theme_song then
-handle = minetest.sound_play({{ name = theme_song }}, {{ loop = true }})
+handle = minetest.sound_play({{ name = theme_song }}, {{ loop = true, pos = minetest.get_player_by_name(player):get_pos() }})
 end
 """
     ends = 0

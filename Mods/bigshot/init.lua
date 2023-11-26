@@ -30,7 +30,8 @@ register_spamton_variation("bigshot:spamton", {
         if not in_battle then
             in_battle = true
             spamton_dialog.show(clicker:get_player_name(), "spamton", function()
-                minetest.sound_play({ name = "spamton-laugh-noise" })
+                minetest.sound_play({ name = "spamton-laugh-noise" },
+                                    { pos = clicker:get_pos() })
                 minetest.handle_async(function() -- Wait until the laugh stops
                     local t0 = os.clock()
                     while os.clock() - t0 <= 2.5 do end

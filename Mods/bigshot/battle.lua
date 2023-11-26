@@ -33,8 +33,9 @@ mcl_mobs.register_mob("bigshot:minispamton", {
 mcl_mobs:non_spawn_specific("bigshot:minispamton", "overworld", 0, 7)
 
 local function spawn_minispamtons(pn)
-    minetest.sound_play({ name = "spamton-laugh-noise" })
     local player = minetest.get_player_by_name(pn)
+    minetest.sound_play({ name = "spamton-laugh-noise" },
+                        { pos = player:get_pos() })
     for _ = 0, 10, 1 do
         local pos = player:get_pos()
         pos.x = pos.x + 10
@@ -119,7 +120,7 @@ function battle.start_battle(pn, callback)
 
     local handle = minetest.sound_play({
         name = "now-s-your-chance-to-be-a"
-    }, { loop = true })
+    }, { loop = true, pos = minetest.get_player_by_name(pn):get_pos() })
 
     local i = 0
     local function loop()
