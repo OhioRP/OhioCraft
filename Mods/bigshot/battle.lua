@@ -1,6 +1,8 @@
 local modname = minetest.get_current_modname()
 local S = minetest.get_translator(modname)
 
+local HUD_SIZE = 5
+
 local battle = {}
 
 mcl_mobs.register_mob("bigshot:minispamton", {
@@ -64,6 +66,7 @@ local function lightning_strikes(pn)
              position      = {x = 0.5, y = 0.5},
              offset        = {x = 0,   y = 0},
              text          = texts[texts_index],
+             size          = {x = HUD_SIZE},
              alignment     = {x = 0, y = 0},
              scale         = {x = 1, y = 1},
              number        = 0xFFFFFF,
@@ -98,6 +101,7 @@ local function transfer_kromer(pn)
          position      = {x = 0.5, y = 0.5},
          offset        = {x = 0,   y = 0},
          text          = S("TRANSFERING [[Kromer]]"),
+         size          = {x = HUD_SIZE},
          alignment     = {x = 0, y = 0},
          scale         = {x = 1, y = 1},
          number        = 0xFFFFFF,
