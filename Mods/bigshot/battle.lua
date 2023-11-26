@@ -119,7 +119,7 @@ local function transfer_kromer(pn)
 end
 
 function battle.start_battle(pn, callback)
-    local functions = {transfer_kromer, spawn_minispamtons, lightning_strikes}
+    local functions = {spawn_minispamtons, transfer_kromer, lightning_strikes}
     local functions_index = 1
 
     local handle = minetest.sound_play({
