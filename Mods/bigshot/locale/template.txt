@@ -1,0 +1,5 @@
+# textdomain: bigshot
+TRANSFERING [[Kromer]]=
+REMOVED @1 `@2`s FROM YOUR INVENTORY LMAO=
+Spamton Creepy=
+Spamton=
