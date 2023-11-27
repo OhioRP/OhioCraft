@@ -7,7 +7,8 @@ from typing import *
 def generate_dialogs(dialogs: List[str], table_name: str) -> str:
     table_name += "_dialog"
     dialog_delay = 5
-    source = f"""local {table_name} = {{}}
+    source = f"""local S = minetest.get_translator(minetest.get_current_modname())
+local {table_name} = {{}}
 
 function {table_name}.show(player, theme_song, callback)
 local handle = nil
@@ -22,7 +23,7 @@ end
 local t0 = os.clock()
 while os.clock() - t0 <= {dialog_delay} do end
 end, function()
-minetest.chat_send_player(player, minetest.colorize("#00FF00", "<{chat_name}> ") .. {repr(token)})
+minetest.chat_send_player(player, minetest.colorize("#00FF00", "<{chat_name}> ") .. S({repr(token)}))
 """
         if i == (len(dialogs) - 1):
             source += """if theme_song then
